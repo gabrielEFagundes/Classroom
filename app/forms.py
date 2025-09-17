@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField
 from wtforms.validators import DataRequired
 
 from app import db, bcrypt
-from app.models import User, Class
+from app.models import User, Class, Activities
 
 class Register(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -48,15 +48,34 @@ class Login(FlaskForm):
         
 class RegisterClass(FlaskForm):
     name = StringField('Class Name', validators=[DataRequired()])
-    teacher_id = StringField('Teacher ID', validators=[DataRequired()])
+    teacher_id = IntegerField('Teacher ID', validators=[DataRequired()])
     submit = SubmitField('Create Class')
 
     def save(self):
         new_class = Class(
-            name=self.name.data
+            name=self.name.data,
+            teacher_id=self.teacher_id.data
         )
 
         db.session.add(new_class)
         db.session.commit()
 
         return new_class
+    
+class NewActivity(FlaskForm):
+    title = StringField("Activity's Title", validators=[DataRequired()])
+    description = StringField("Activity's Description", validators=[DataRequired()])
+    class_id = IntegerField("Class' ID", validators=[DataRequired()])
+    submit = SubmitField('Send Activity')
+
+    def save(self):
+        new_activity = Activities(
+            title=self.title.data,
+            description=self.description.data,
+            class_id=self.class_id.data
+        )
+
+        db.session.add(new_activity)
+        db.session.commit()
+
+        return new_activity

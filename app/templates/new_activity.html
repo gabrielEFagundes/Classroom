@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="d-flex flex-column align-items-center mt-5">
+    <h1>Register a new Activity</h1>
+    <p class="text-secondary">Your students will rock on this one!</p>
+    <div class="border shadow p-4 mt-4">
+        <p class="fw-bold">Your class' id: {{ classroom }}</p>
+        <form method="post" class="d-flex flex-column align-items-center px-5 py-3">
+            {{ form.csrf_token }}
+
+            {{ form.title(class="form-control mb-3", placeholder="Activity's Title...") }}
+            
+            {{ form.description(class="form-control mb-3", placeholder="Activity's Description...") }}
+
+            {{ form.class_id(class="form-control mb-3", placeholder="Your Class' ID here...") }}
+
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+</section>
+{% endblock %}
