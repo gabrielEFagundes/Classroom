@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="d-flex flex-column align-items-center mt-5">
+    <h1>Welcome back!</h1>
+    <p class="text-secondary">Ready to join us again?</p>
+    <div class="border shadow p-4 mt-4">
+        <form method="post" class="d-flex flex-column align-items-center px-5 py-3">
+            {{ form.csrf_token }}
+
+            {{ form.email(class="form-control mb-3", placeholder="Your Email...") }}
+
+            {{ form.password(class="form-control mb-3", placeholder="Your Password...") }}
+
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+</section>
+{% endblock %}
