@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section>
+<section class="d-flex flex-column align-items-center mt-5">
     <h1>Sign a new Class</h1>
     <p class="text-secondary">This will be your new class!</p>
     <div class="border shadow p-4 mt-4">
+        <p class="fw-bold">Your id: {{ current_user.id }}</p>
         <form method="post" class="d-flex flex-column align-items-center px-5 py-3">
             {{ form.csrf_token }}
 
             {{ form.name(class="form-control mb-3", placeholder="Class Name...") }}
-
-            {{ form.teacher_id(class="form-control mb-3 d-none", value="{{ current_user.id }}") }}
+            
+            {{ form.teacher_id(class="form-control mb-3", placeholder="Your ID here...") }}
 
             {{ form.submit(class="btn btn-primary") }}
         </form>

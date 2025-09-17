@@ -1,6 +1,7 @@
 from app import db, login_manager
 from datetime import datetime
 from flask_login import UserMixin
+from app.views import current_user
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -15,10 +16,11 @@ class User(db.Model, UserMixin):
 class Class(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150), unique=True, nullable=False)
-    teacher_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    teacher_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, default=User.id)
 
 class Activities(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150), nullable=False)
     description = db.Column(db.Text, nullable=True)
     date = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    class_id = db.Column(db.Integer, db.ForeignKey('class.id'), nullable=False)
