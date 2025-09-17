@@ -2,7 +2,7 @@
 
 A application made to make the lives of teachers way easier.
 
-This application was made especially for training Python and the microframework Python.
+This application was made especially for training Python and the microframework Flask.
 
 ## Infrastructure requirements
 - **SGBG used:** SQLite;
