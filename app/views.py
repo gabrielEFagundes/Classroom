@@ -79,12 +79,14 @@ def deleteClass(id):
 def classPage(id):
     classroom = Class.query.get(id)
     data = Activities.query.filter_by(class_id=id)
+    teacherName = User.query.get(classroom.teacher_id).name # this isn't working
 
     activities = {'data' : data.all()}
 
-    return render_template('class_page.html', classroom=classroom, activities=activities)
+    return render_template('class_page.html', classroom=classroom, activities=activities, teacher=teacherName)
 
 @app.route('/view/class/<int:id>/new', methods=['GET', 'POST'])
+@login_required
 def signActivity(id):
     form = NewActivity()
 

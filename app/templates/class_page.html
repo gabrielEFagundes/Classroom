@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if current_user.email.__contains__('@edu') %}
 <section class="mt-5">
     <div class="d-flex flex-column align-items-center">
         <h1>This is {{ classroom.name }}</h1>
@@ -29,4 +30,34 @@
         </table>
     </div>
 </section>
+{% else %}
+<section class="mt-5">
+    <div class="d-flex flex-column align-items-center">
+        <h1>This is {{ classroom.name }}</h1>
+        <p class="text-secondary">Ready to rock on your activities?</p>
+    </div>
+    <div class="mt-5 d-flex justify-content-center fw-bold">
+        <p class="bg-dark text-light p-2 border rounded">Your teacher is {{ teacher }}!</p>
+    </div>
+    <div class="px-5 py-3">
+        <p class="fw-bold">Activities</p>
+        <table class="table">
+            <thead>
+                <th class="fw-bold">Number</th>
+                <th class="fw-bold">Title</th>
+                <th class="fw-bold">Description</th>
+            </thead>
+            <tbody>
+                {% for i in activities['data'] %}
+                <tr>
+                    <td>{{ i.id }}</td>
+                    <td>{{ i.title }}</td>
+                    <td>{{ i.description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endif %}
 {% endblock %}

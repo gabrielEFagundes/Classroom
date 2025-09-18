@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if current_user.email.__contains__('@edu') %}
 <section class="mt-5">
     <div class="d-flex flex-column align-items-center">
         <h1>Welcome to the Home Page</h1>
@@ -32,4 +33,33 @@
         </table>
     </div>
 </section>
+{% else %}
+<section class="mt-5">
+    <div class="d-flex flex-column align-items-center">
+        <h1>Welcome to the Home Page</h1>
+        <p class="text-secondary">This is where you can see all classes you're in!</p>
+    </div>
+    <div class="px-5 py-3">
+        <p class="fw-bold">Classes</p>
+        <table class="table">
+            <thead>
+                <th class="fw-bold">Number</th>
+                <th class="fw-bold">Name</th>
+                <th class="fw-bold">Action</th>
+            </thead>
+            <tbody>
+                {% for i in classes['data'] %}
+                <tr>
+                    <td>{{ i.id }}</td>
+                    <td>{{ i.name }}</td>
+                    <td>
+                        <a href="{{ url_for('classPage', id=i.id) }}" class="btn btn-success">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endif %}
 {% endblock %}
